@@ -65,6 +65,8 @@
           <th>Email</th>
           <th>Name</th>
           <th>Phone</th>
+          <th>Delete</th>
+          <th>Update</th>
         </tr>
       </thead>
       <tbody>
@@ -73,7 +75,8 @@
           <td>{{i.email}}</td>
           <td>{{i.name}}</td>
           <td>{{i.phone}}</td>
-        
+          <td><a href="/del/{{i.id}}/">Delete</a></td>
+          <td><a href="/upd/{{i.id}}/">Update</a></td>
         </tr>
         {% endfor %}
 

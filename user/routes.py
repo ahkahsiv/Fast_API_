@@ -107,6 +107,35 @@ async def login(request:Request, email:str =Form(...),
 
 @router.get("/welcome/", response_class=HTMLResponse)
 def read_item(request: Request):
-    return templates.TemplateResponse("welcome.html", {"request": request})
+    data=User.all()
+    return templates.TemplateResponse("welcome.html", {"request": request,'data':data})
+
+
+import uuid
+@router.get("/del/{id}/",response_class=HTMLResponse)
+
+async def delete(request: Request, id:uuid.UUID):
+        await User.get(id=id).delete()
+        data=await User.all()
+        return templates.TemplateResponse("welcome.html", {"request": request,'data':data})
+
+
+@router.get("/upd/{id}/", response_class=HTMLResponse)
+async def read_item(request: Request, id:uuid.UUID):
+    user= await User.get(id=id)
+    return templates.TemplateResponse("update.html", {"request": request,'user':user})
+
+
+@router.post("/update_user/", response_class=HTMLResponse)
+async def update_user(request: Request,name: str =Form(...),
+                                   email:str =Form(...),
+                                   phone:str =Form(...),
+                                   ):
+    
+    if await User.filter(id=id).exists():
+        user= await User.filter(id=id).update(name=name,email=email,phone=phone)
+    data= await User.all()
+    return templates.TemplateResponse("welcome.html", {"request": request,'data':data})
+ 
 
 
