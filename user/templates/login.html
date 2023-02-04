@@ -95,11 +95,21 @@ button:hover{
 #chk:checked ~ .signup label{
 	transform: scale(.6);
 }
+.success{
+ color: green;
+}
+.danger{
+ color: red;
+}
 
 </style>
 
 </head>
 <body>
+
+	{% for message in get_flashed_messages(request) %}
+	<div class="{{ message.category }}">{{ message.message }}</div>
+	{% endfor %}
 	<div class="main">  	
 		<input type="checkbox" id="chk" aria-hidden="true">
 

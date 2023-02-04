@@ -1,1 +1,6 @@
 Hello
+<script>
+	{% for message in get_flashed_messages(request) %}
+	<div class="{{ message.category }}">{{ message.message }}</div>
+	{% endfor %}
+</script>
