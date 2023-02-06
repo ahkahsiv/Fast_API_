@@ -1,5 +1,5 @@
 from user.pydantic_models import *
-# from http.client import HTTPResponse, HTTPException
+from http.client import HTTPResponse, HTTPException
 from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi import APIRouter, Request , Form, status
 from fastapi.templating import Jinja2Templates
@@ -112,7 +112,7 @@ def read_item(request: Request):
 
 
 import uuid
-@router.get("/del/{id}/",response_class=HTMLResponse)
+@router.get("/del/{id}/")
 
 async def delete(request: Request, id:uuid.UUID):
         await User.get(id=id).delete()
@@ -120,22 +120,23 @@ async def delete(request: Request, id:uuid.UUID):
         return templates.TemplateResponse("welcome.html", {"request": request,'data':data})
 
 
-@router.get("/upd/{id}/", response_class=HTMLResponse)
+@router.get("/upd/{id}/")
 async def read_item(request: Request, id:uuid.UUID):
     user= await User.get(id=id)
     return templates.TemplateResponse("update.html", {"request": request,'user':user})
 
 
-@router.post("/update_user/", response_class=HTMLResponse)
-async def update_user(request: Request,name: str =Form(...),
+@router.post("/update/", response_class=HTMLResponse)
+async def update(request: Request,id:uuid.UUID=Form(...),
+                                    name: str =Form(...),
                                    email:str =Form(...),
                                    phone:str =Form(...),
                                    ):
     
-    if await User.filter(id=id).exists():
+    if await User.get(id=id).exists():
         user= await User.filter(id=id).update(name=name,email=email,phone=phone)
-    data= await User.all()
-    return templates.TemplateResponse("welcome.html", {"request": request,'data':data})
+        data= await User.all()
+        return templates.TemplateResponse("welcome.html", {"request": request,'data':data})
  
 
 

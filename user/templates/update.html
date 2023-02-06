@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Sign_Up/Login Page</title>
+	<title>Update Page</title>
 	<link rel="stylesheet" type="text/css" href="slide navbar style.css">
 <link href="https://fonts.googleapis.com/css2?family=Jost:wght@500&display=swap" rel="stylesheet">
 <style>
@@ -112,14 +112,14 @@ button:hover{
 		<input type="checkbox" id="chk" aria-hidden="true">
 
 			<div class="signup">
-				<form method="post" action="update_user">
+				<form method="post" action="/update/">
 
 					<label for="chk" aria-hidden="true">Update</label>
-                    <input type="hidden" name="id" value="{{user.id}}">
+                    <input type="hidden" name='id' value="{{user.id}}">
 
-					<input type="text" name="name" placeholder="{{user.name}}">
-					<input type="email" name="email" placeholder="{{user.email}}" required="">
-                    <input type="text" name="phone" placeholder="{{user.phone}}" required="">
+					<input type="text" name="name" value="{{user.name}}">
+					<input type="email" name="email" value="{{user.email}}">
+                    <input type="text" name="phone" value="{{user.phone}}">
 					<button type="submit">Update</button>
 				</form>
 			</div>
